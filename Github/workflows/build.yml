@@ -1,0 +1,21 @@
+name: Build PS3 game
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ps3dev/ps3dev:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: make
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: minimario
+          path: |
+            minimario.self
+            minimario.elf
